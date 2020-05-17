@@ -46,6 +46,7 @@ using namespace std;
 #define MIN(x) *min_element(x)
 #define MINV(x) *min_element(ALL(x))
 
+
 const double pi=acos(-1.0);
 typedef long int int32;
 typedef unsigned long int UL;
@@ -62,6 +63,7 @@ typedef vector<VI> VVI;
 typedef map<int,int> MPII;
 typedef set<int> SETI;
 typedef multiset<int> MSETI;
+
 
 int sgn(LL a) { return (a>0)-(a<0); }
 LL sq(LL a) { return a*a; }
@@ -99,8 +101,45 @@ template<class I> void dgts(I i, VI& out){
     for(; i>0; i/=10) out.PB(i%10);
 }
 
+
+LL cost(LL h, VLL& v, int A, int R, int M){
+    LL ab=0;
+    LL un=0;
+    TRAV(a, v) ab+=max(a-h, 0LL);
+    TRAV(a, v) un+=max(h-a, 0LL);
+    LL mv = min(ab, un);
+    return min(mv*M+max(ab-mv, 0LL)*R+max(un-mv, 0LL)*A, ab*R+un*A);
+}
+
 int main(){
     ios_base::sync_with_stdio(0); cin.tie(0);
 
+    int N, A, R, X; re(N, A, R, X);
+    VLL v(N); re(v);
+    LL m, M;
+    m = MINV(v); M = MAXV(v);
+    LL c=0;
+    while(m < M){
+        int p = (m+M)/2;
+        int p2 = p+1;
+        // ps(m, M, p, p2);
+        LL c1 = cost(p, v, A, R, X);
+        LL c2 = cost(p2, v, A, R, X);
+        // ps("costs", c1, c2);
+        if(c1 < c2){
+            M = p;
+            c = c1;
+        }
+        else if(c2 < c1){
+            m = p2;
+            c = c2;
+        }
+        else{
+            c = c1;
+            break;
+        }        
+    }
+
+    ps(c);
     return 0;
 }
