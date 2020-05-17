@@ -31,8 +31,9 @@ using namespace std;
 #define REP(i, j) FOR(i, 0, j, 1)
 #define RREP(i, j) RFOR(i, j, 0, 1)
 #define ALL(cont) cont.begin(), cont.end()
-#define RALL(cont) cont.end(), cont.begin()
-#define TRAV(it, l) for (auto it = l.begin(); it != l.end(); it++)
+#define RALL(cont) cont.rbegin(), cont.rend()
+#define TRAVIT(it, l) for (auto it = l.begin(); it != l.end(); it++)
+#define TRAV(a,x) for (auto& a: x)
 #define IN(A, B, C) assert( B <= A && A <= C)
 #define MP make_pair
 #define PB push_back
